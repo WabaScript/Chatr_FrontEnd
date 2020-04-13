@@ -1,28 +1,28 @@
 import React from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 import NavBar from './Components/NavBar'
 import ChatsContainer from './Containers/ChatsContainer'
 
 class App extends React.Component {
 
   state = {
-    chats: [],
-    messages: [],
-    users: []
+    chats: []
+  }
+
+  componentDidMount() {
+    fetch(`http://localhost:3000/chats`)
+    .then(resp => resp.json())
+    .then(chats => this.setState({ chats: chats }))
   }
 
   render() {
     return (
-      <Router >
       <div>
         {/* <NavBar /> */}
-        
-  
-    <Route exact path="/chats" component={ChatsContainer} /> 
-  
-
+        <Switch>
+            <Route path="/chats" render={routerProps => <ChatsContainer {...routerProps} chats={this.state.chats}/>} />
+        </Switch>
       </div>
-        </Router>
     );
   }
 }
