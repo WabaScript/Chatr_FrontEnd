@@ -1,7 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
-// import NavBar from '../Components/NavBar'
-import { render } from 'react-dom';
+import NavBar from './Components/NavBar'
 import ChatsContainer from './Containers/ChatsContainer'
 
 class App extends React.Component {
@@ -18,8 +17,8 @@ class App extends React.Component {
       <div>
         {/* <NavBar /> */}
         
-          
-    <Route exact path="/chats" component={ChatsContainer} />
+  
+    <Route exact path="/chats" component={ChatsContainer} /> 
   
 
       </div>

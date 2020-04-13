@@ -10,17 +10,18 @@ export default class ChatsContainer extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:3000/chats`)
+      console.log("hi")
+    fetch(`http://localhost:6969/chats`)
     .then(resp => resp.json())
     .then(chats => this.setState({ chats: chats }))
     
   }
 
   render() {
-      console.log(this.state.chats)
+       console.log(this.state.chats)
       return(
           <div>
-
+                hi
           </div>
       )
   }
