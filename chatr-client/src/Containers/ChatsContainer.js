@@ -23,7 +23,6 @@ export default class ChatsContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props.match.url)
       return(
           <div>
             <ChatsList chats={this.props.chats}/>
