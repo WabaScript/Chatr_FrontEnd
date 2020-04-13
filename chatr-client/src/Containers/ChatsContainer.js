@@ -1,27 +1,33 @@
 import React from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {Route} from 'react-router-dom'
 // import NavBar from './Components/NavBar'
 import { render } from 'react-dom';
+import Chat from "../Components/Chat"
+import ChatsList from "../Components/ChatsList"
 
 export default class ChatsContainer extends React.Component {
 
   state = {
-    chats: []
+    messages: [],
+    users: []
   }
 
   componentDidMount() {
-      console.log("hi")
-    fetch(`http://localhost:6969/chats`)
+    fetch(`http://localhost:3000/messages`)
     .then(resp => resp.json())
-    .then(chats => this.setState({ chats: chats }))
-    
+    .then(messages => this.setState({ messages: messages }))
+
+    fetch(`http://localhost:3000/users`)
+    .then(resp => resp.json())
+    .then(users => this.setState({ users: users }))
   }
 
   render() {
-       console.log(this.state.chats)
+    console.log(this.props.match.url)
       return(
           <div>
-                hi
+            <ChatsList chats={this.props.chats}/>
+            {<Route exact path={`${this.props.match.url}/:chatId`} render={routerProps => <Chat {...routerProps} chats={this.props.chats} messages={this.state.messages} users={this.state.users}/> }/>}
           </div>
       )
   }
