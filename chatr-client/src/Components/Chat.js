@@ -1,5 +1,6 @@
 import React from 'react'
 import {useParams} from "react-router-dom"
+import NewMessageForm from './NewMessageForm'
 
 const Chat = (props) => {
 
@@ -19,6 +20,7 @@ const Chat = (props) => {
         <div>
             <h3>{props.chats.length > 0 ? props.chats[chatId - 1].topic : null}</h3>
             {renderMessages()}
+            <NewMessageForm chat_id={chatId} handleMessageSubmit={props.handleMessageSubmit} />
         </div>
     )
 
