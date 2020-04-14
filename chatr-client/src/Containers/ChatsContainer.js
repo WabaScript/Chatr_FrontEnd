@@ -8,18 +8,13 @@ import ChatsList from "../Components/ChatsList"
 export default class ChatsContainer extends React.Component {
 
   state = {
-    messages: [],
-    users: []
+    messages: []
   }
 
   componentDidMount() {
     fetch(`http://localhost:3000/messages`)
     .then(resp => resp.json())
     .then(messages => this.setState({ messages: messages }))
-
-    fetch(`http://localhost:3000/users`)
-    .then(resp => resp.json())
-    .then(users => this.setState({ users: users }))
   }
 
   handleMessageSubmit = (e, message) => {
@@ -46,7 +41,7 @@ export default class ChatsContainer extends React.Component {
                   <Chat {...routerProps} 
                     chats={this.props.chats} 
                     messages={this.state.messages} 
-                    users={this.state.users} 
+                    users={this.props.users} 
                     handleMessageSubmit={this.handleMessageSubmit}/> 
                   }/>
             }
