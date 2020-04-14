@@ -7,9 +7,10 @@ const Chat = (props) => {
 
     const renderMessages = () => {
         if (props.chats.length > 0) {
+            let user = ''
             return props.messages.map(message => {
-                return <div>{props.users.map(user => {return <p> {user.id === message.user_id ? user.username : null} </p>}) }
-                    {message.chat_id == chatId ? message.content : null}</div>
+                user = props.users.find(user => user.id === message.user_id )
+                return <div> {message.chat_id == chatId && (user.username + ":")} {message.chat_id == chatId && message.content}</div>
             }) 
         }
     }
