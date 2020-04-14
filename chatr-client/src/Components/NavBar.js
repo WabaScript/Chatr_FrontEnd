@@ -15,9 +15,11 @@ const NavBar = props => {
     return (
         <div>
             <NavLink to="/" exact style={link} activeStyle={{background: "orange"}}>HomesweetHome</NavLink>
+            <NavLink to="/newChat" exact style={link} activeStyle={{background: "orange"}}>Create New Chat</NavLink>
             <NavLink to="/chats" exact style={link} activeStyle={{background: "orange"}}>Chatr Chats</NavLink>
             <NavLink to="/popchats" exact style={link} activeStyle={{background: "orange"}}>PoPuLaR Chatr Chats</NavLink>
             <NavLink to="/profile" exact style={link} activeStyle={{background: "orange"}}>Profile</NavLink>
+            <NavLink to="/login" exact style={link} activeStyle={{background: "orange"}}>Login</NavLink>
             <NavLink to="/signup" exact style={link} activeStyle={{background: "orange"}}>Become One of Us</NavLink>
         </div>
     )
