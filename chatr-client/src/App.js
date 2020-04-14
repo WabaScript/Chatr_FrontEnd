@@ -4,6 +4,7 @@ import NavBar from './Components/NavBar'
 import ChatsContainer from './Containers/ChatsContainer'
 import NewChatForm from './Components/NewChatForm';
 import Signup from './Components/Signup'
+import Login from './Components/Login'
 
 class App extends React.Component {
 
@@ -58,12 +59,14 @@ class App extends React.Component {
         <NavBar />
         <Switch>
             <Route path="/signup" render={routerProps => <Signup {...routerProps} handleSignupSubmit={this.handleSignupSubmit}/> } />
+            <Route path="/login" render={routerProps => <Login {...routerProps}/> } />
             <Route path="/chats" render={routerProps => <ChatsContainer {...routerProps} chats={this.state.chats} users={this.state.users}/>} />
+            <Route path="/newChat" render={routerProps => <NewChatForm {...routerProps} handleSubmit={this.handleSubmit}/>} />
         </Switch>
-        <NewChatForm handleSubmit={this.handleSubmit}/>
       </div>
     );
   }
 }
+
 
 export default App;
