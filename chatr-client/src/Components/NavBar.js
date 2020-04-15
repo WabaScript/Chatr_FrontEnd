@@ -19,7 +19,7 @@ const NavBar = props => {
             <NavLink to="/chats" exact style={link} activeStyle={{background: "orange"}}>Chatr Chats</NavLink>
             <NavLink to="/popchats" exact style={link} activeStyle={{background: "orange"}}>PoPuLaR Chatr Chats</NavLink>
             <NavLink to="/profile" exact style={link} activeStyle={{background: "orange"}}>Profile</NavLink>
-            <NavLink to="/login" exact style={link} activeStyle={{background: "orange"}}>Login</NavLink>
+            {!props.currentUser ? <NavLink to="/login" exact style={link} activeStyle={{background: "orange"}}>Login</NavLink> : null}
             <NavLink to="/signup" exact style={link} activeStyle={{background: "orange"}}>Become One of Us</NavLink>
         </div>
     )

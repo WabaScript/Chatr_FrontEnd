@@ -9,11 +9,16 @@ export default class NewMessageForm extends React.Component {
     }
 
     handleChange = (event) => {
-        this.setState({
-            content: event.target.value,
-            user_id: this.props.currentUser.id,
-            chat_id: this.props.chat_id
-        })
+        if (this.props.currentUser) {
+            this.setState({
+                content: event.target.value,
+                user_id: this.props.currentUser.id,
+                chat_id: this.props.chat_id
+            })
+        } 
+        else {
+            alert("Nah fam, you need to login to post a message!")
+        }
     }
 
     handleFormReset = () => {
