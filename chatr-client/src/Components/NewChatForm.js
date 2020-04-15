@@ -8,10 +8,15 @@ export default class NewChatForm extends React.Component {
     }
 
     handleChange = (event) => {
-        this.setState({
-            topic: event.target.value,
-            owner_id: this.props.currentUser.id
-        })
+        if (this.props.currentUser) {
+            this.setState({
+                topic: event.target.value,
+                owner_id: this.props.currentUser.id
+            })
+        } 
+        else {
+            alert("You finna login?")
+        }
     }
 
     handleFormReset = () => {
