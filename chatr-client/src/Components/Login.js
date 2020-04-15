@@ -13,18 +13,37 @@ export default class Login extends React.Component {
         })
     }
 
-    handleFormReset = () => {
-        this.setState({
-            username: "",
-            password: ""
-        })
-    }
+    // handleFormReset = () => {
+    //     this.setState({
+    //         username: "",
+    //         password: ""
+    //     })
+    // }
+
+  handleLoginSubmit = (e) => {
+    e.preventDefault()
+    fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(this.state)})
+    .then(res => res.json())
+    .then(response => {
+      if (response.errors){
+        alert(response.errors)
+      } else {
+        this.props.setUser(response)
+      }
+    })
+  }
 
     render(){
         return(
-            <form>
-                <input type="text" placeholder="Enter your Username" name="username" />  
-                <br/><input type="text" placeholder="Enter your Password" name="password" />    
+            <form onSubmit={this.handleLoginSubmit}>
+                <input type="text" placeholder="Enter your Username" name="username" value={this.state.username} onChange={this.handleChange}/>  
+                <br/><input type="password" placeholder="Enter your Password" name="password" value={this.state.password} onChange={this.handleChange}/>    
                 <br/><input type="submit" value="Submit" />
             </form>
         )

@@ -20,7 +20,7 @@ const Chat = (props) => {
         <div>
             <h3>{props.chats.length > 0 ? props.chats[chatId - 1].topic : null}</h3>
             {renderMessages()}
-            <NewMessageForm chat_id={chatId} handleMessageSubmit={props.handleMessageSubmit} />
+            <NewMessageForm chat_id={chatId} handleMessageSubmit={props.handleMessageSubmit} currentUser={props.currentUser} />
         </div>
     )
 

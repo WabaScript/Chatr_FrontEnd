@@ -4,12 +4,13 @@ export default class NewChatForm extends React.Component {
 
     state={
         topic: "",
-        owner_id: 1
+        owner_id: "",
     }
 
     handleChange = (event) => {
         this.setState({
-            topic: event.target.value
+            topic: event.target.value,
+            owner_id: this.props.currentUser.id
         })
     }
 
