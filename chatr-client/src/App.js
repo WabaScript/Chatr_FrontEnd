@@ -10,10 +10,28 @@ class App extends React.Component {
 
   state = {
     chats: [],
-    users: []
+    users: [],
+    currentUser: null
   }
 
   componentDidMount() {
+    const user_id = localStorage.user_id
+    if(user_id) {
+      fetch("http://localhost:3000/auto_login", {
+        headers: {
+          "Authorization": user_id
+        }
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.errors){
+          alert(res.errors)
+        } else {
+          this.setState({ currentUser: res})
+        }
+      })
+    }
+
     fetch(`http://localhost:3000/chats`)
     .then(resp => resp.json())
     .then(chats => this.setState({ chats: chats }))
@@ -23,6 +41,17 @@ class App extends React.Component {
     .then(users => this.setState({ users: users }))
   }
 
+    // Login Session Handler
+    setUser = (user) => {
+      this.setState({
+        currentUser: user
+      }, () => {
+        localStorage.user_id = user.id
+        this.props.history.push("/chats")
+      })
+    }
+
+  //handle New Chat
   handleSubmit = (e, chat) => {
     e.preventDefault()
     fetch(`http://localhost:3000/chats`, {
@@ -38,6 +67,7 @@ class App extends React.Component {
     e.target.reset()
   }
 
+  //Handle New User Sign UP
   handleSignupSubmit = (e, user) => {
     e.preventDefault()
     fetch(`http://localhost:3000/users`, {
@@ -53,15 +83,17 @@ class App extends React.Component {
     e.target.reset()
   }
 
+  
+
   render() {
     return (
       <div>
         <NavBar />
         <Switch>
             <Route path="/signup" render={routerProps => <Signup {...routerProps} handleSignupSubmit={this.handleSignupSubmit}/> } />
-            <Route path="/login" render={routerProps => <Login {...routerProps}/> } />
-            <Route path="/chats" render={routerProps => <ChatsContainer {...routerProps} chats={this.state.chats} users={this.state.users}/>} />
-            <Route path="/newChat" render={routerProps => <NewChatForm {...routerProps} handleSubmit={this.handleSubmit}/>} />
+            <Route path="/login" render={routerProps => <Login {...routerProps} setUser={this.setUser} /> } />
+            <Route path="/chats" render={routerProps => <ChatsContainer {...routerProps} chats={this.state.chats} currentUser={this.state.currentUser} users={this.state.users}/>} />
+            <Route path="/newChat" render={routerProps => <NewChatForm {...routerProps} handleSubmit={this.handleSubmit}/>} currentUser={this.state.currentUser} />
         </Switch>
       </div>
     );

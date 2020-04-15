@@ -4,13 +4,14 @@ export default class NewMessageForm extends React.Component {
 
     state={
         content: "",
-        user_id: 1,
+        user_id: this.props.currentUser,
         chat_id: null
     }
 
     handleChange = (event) => {
         this.setState({
             content: event.target.value,
+            user_id: this.props.currentUser,
             chat_id: this.props.chat_id
         })
     }

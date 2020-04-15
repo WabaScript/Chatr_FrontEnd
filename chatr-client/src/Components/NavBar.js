@@ -8,7 +8,7 @@ const link = {
     margin: '0 6px 6px',
     background: 'blue',
     textDecoration: 'none',
-    color: 'white',
+    color: 'white'
   }
 
 const NavBar = props => {

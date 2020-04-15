@@ -42,7 +42,8 @@ export default class ChatsContainer extends React.Component {
                     chats={this.props.chats} 
                     messages={this.state.messages} 
                     users={this.props.users} 
-                    handleMessageSubmit={this.handleMessageSubmit}/> 
+                    handleMessageSubmit={this.handleMessageSubmit}
+                    currentUser={this.props.currentUser}/> 
                   }/>
             }
           </div>
