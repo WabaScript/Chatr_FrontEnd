@@ -11,7 +11,8 @@ class App extends React.Component {
   state = {
     chats: [],
     users: [],
-    currentUser: null
+    currentUser: null,
+    loggedIn: false
   }
 
   componentDidMount() {
@@ -27,7 +28,7 @@ class App extends React.Component {
         if (res.errors){
           alert(res.errors)
         } else {
-          this.setState({ currentUser: res})
+          this.setState({ currentUser: res, loggedIn: true})
         }
       })
     }
@@ -35,19 +36,28 @@ class App extends React.Component {
     fetch(`http://localhost:3000/chats`)
     .then(resp => resp.json())
     .then(chats => this.setState({ chats: chats }))
-
-    fetch(`http://localhost:3000/users`)
-    .then(resp => resp.json())
-    .then(users => this.setState({ users: users }))
   }
 
     // Login Session Handler
     setUser = (user) => {
       this.setState({
-        currentUser: user
+        currentUser: user,
+        loggedIn: true
       }, () => {
         localStorage.user_id = user.id
         this.props.history.push("/chats")
+      })
+    }
+
+    // Logout Handler
+    logout = () => {
+      this.setState({
+        currentUser: null,
+        loggedIn: false
+      }, () => {
+        localStorage.removeItem("user_id")
+        alert("You have been logged out!")
+        this.props.history.push("/login")
       })
     }
 
@@ -70,17 +80,23 @@ class App extends React.Component {
   //Handle New User Sign UP
   handleSignupSubmit = (e, user) => {
     e.preventDefault()
-    fetch(`http://localhost:3000/users`, {
+    fetch(`http://localhost:3000/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify({user: user})
     })
-    .then(resp => resp.json())
-    .then(user => this.setState({ users: [...this.state.users, user] }))
-    e.target.reset()
+    .then(res => res.json())
+    .then( res => {
+        if (res.errors){
+          alert(res.errors)
+        } else {
+          this.setUser(res)
+        }
+      })
+    //   e.target.reset()
   }
 
   
@@ -88,12 +104,13 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar currentUser={this.state.currentUser}/>
+        { this.state.loggedIn && <button onClick={this.logout} >Logout</button> }
         <Switch>
             <Route path="/signup" render={routerProps => <Signup {...routerProps} handleSignupSubmit={this.handleSignupSubmit}/> } />
             <Route path="/login" render={routerProps => <Login {...routerProps} setUser={this.setUser} /> } />
-            <Route path="/chats" render={routerProps => <ChatsContainer {...routerProps} chats={this.state.chats} currentUser={this.state.currentUser} users={this.state.users}/>} />
-            <Route path="/newChat" render={routerProps => <NewChatForm {...routerProps} handleSubmit={this.handleSubmit}/>} currentUser={this.state.currentUser} />
+            <Route path="/chats" render={routerProps => <ChatsContainer {...routerProps} chats={this.state.chats} currentUser={this.state.currentUser} />} />
+            <Route path="/newChat" render={routerProps => <NewChatForm {...routerProps} handleSubmit={this.handleSubmit} currentUser={this.state.currentUser}/>} />
         </Switch>
       </div>
     );

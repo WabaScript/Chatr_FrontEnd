@@ -35,7 +35,7 @@ export default class Signup extends React.Component {
                 <br/><input type="text" placeholder="Last Name" name="last_name" value={this.state.last_name} onChange={this.handleChange} />  
                 <br/><input type="text" placeholder="Email" name="email" value={this.state.email} onChange={this.handleChange} />  
                 <br/><input type="text" placeholder="Choose a Username" name="username" value={this.state.username} onChange={this.handleChange} />  
-                <br/><input type="text" placeholder="Choose a Password" name="password" value={this.state.password} onChange={this.handleChange} />  
+                <br/><input type="password" placeholder="Choose a Password" name="password" value={this.state.password} onChange={this.handleChange} />  
                 <br/><input type="text" placeholder="Profile Picture Url" name="pro_pic" value={this.state.pro_pic} onChange={this.handleChange} />   
                 <br/><input type="submit" value="Submit" />
             </form>
