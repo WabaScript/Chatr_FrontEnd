@@ -40,8 +40,8 @@ export default class ChatsContainer extends React.Component {
   render() {
       return(
           <div>
-            <ChatsList chats={this.props.chats}/>
-            {<Route exact path={`${this.props.match.url}/:chatId`} 
+            <ChatsList chats={this.props.chats} deleteChat={this.props.deleteChat}/>
+            <Route exact path={`${this.props.match.url}/:chatId`} 
                 render={routerProps => 
                   <Chat {...routerProps} 
                     chats={this.props.chats} 
@@ -50,7 +50,6 @@ export default class ChatsContainer extends React.Component {
                     handleMessageSubmit={this.handleMessageSubmit}
                     currentUser={this.props.currentUser}/> 
                   }/>
-            }
           </div>
       )
   }

@@ -16,6 +16,7 @@ export default class NewChatForm extends React.Component {
         } 
         else {
             alert("You finna login?")
+            console.log(this.props.currentUser)
         }
     }
 
