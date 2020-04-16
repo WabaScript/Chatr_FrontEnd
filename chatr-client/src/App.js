@@ -5,6 +5,7 @@ import ChatsContainer from './Containers/ChatsContainer'
 import NewChatForm from './Components/NewChatForm';
 import Signup from './Components/Signup'
 import Login from './Components/Login'
+import GlobalStyle from './styles/Global';
 
 class App extends React.Component {
 
@@ -12,7 +13,8 @@ class App extends React.Component {
     chats: [],
     users: [],
     currentUser: null,
-    loggedIn: false
+    loggedIn: false,
+    navbarOpen: false
   }
 
   componentDidMount() {
@@ -36,6 +38,10 @@ class App extends React.Component {
     fetch(`http://localhost:3000/chats`)
     .then(resp => resp.json())
     .then(chats => this.setState({ chats: chats }))
+  }
+
+  handleNavbar = () => {
+    this.setState({ navbarOpen: !this.state.navbarOpen });
   }
 
     // Login Session Handler
@@ -99,12 +105,11 @@ class App extends React.Component {
     //   e.target.reset()
   }
 
-  
-
   render() {
     return (
       <div>
-        <NavBar currentUser={this.state.currentUser}/>
+        <NavBar currentUser={this.state.currentUser} navbarState={this.state.navbarOpen} handleNavbar={this.handleNavbar}/>
+        <GlobalStyle />
         { this.state.loggedIn && <button onClick={this.logout} >Logout</button> }
         <Switch>
             <Route path="/signup" render={routerProps => <Signup {...routerProps} handleSignupSubmit={this.handleSignupSubmit}/> } />
