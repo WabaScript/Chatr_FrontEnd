@@ -56,17 +56,11 @@ export default class ChatsContainer extends React.Component {
       },
       body: JSON.stringify(msg)
     })
-    // .then(resp => resp.json())
-    // .then(json => {
-    //   let newArray =  this.state.messages.map(message => msg.id === json.id ? json : message)
-    //   this.setState({
-    //     messages: newArray,
-    //     edit: !this.state.edit
-    //   })
-    // })
-    fetch(`http://localhost:3000/messages`)
-    .then(res => res.json())
-    .then(res => this.setState({ messages: res, edit: !this.state.edit}))
+      let newArray =  this.state.messages.map(message => msg.id === message.id ? msg : message)
+      this.setState({
+        messages: newArray,
+        edit: !this.state.edit
+      })
   }
 
   // componentDidUpdate(_, prevState) {

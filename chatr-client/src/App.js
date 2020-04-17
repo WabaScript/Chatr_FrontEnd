@@ -110,7 +110,7 @@ class App extends React.Component {
       <div>
         <NavBar currentUser={this.state.currentUser} navbarState={this.state.navbarOpen} handleNavbar={this.handleNavbar}/>
         <GlobalStyle />
-        { this.state.loggedIn && <button onClick={this.logout} >Logout</button> }
+        { this.state.loggedIn && <button className={"logOutBtn"} onClick={this.logout} >Logout</button> }
         <Switch>
             <Route path="/signup" render={routerProps => <Signup {...routerProps} handleSignupSubmit={this.handleSignupSubmit}/> } />
             <Route path="/login" render={routerProps => <Login {...routerProps} setUser={this.setUser} /> } />

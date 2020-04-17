@@ -41,12 +41,13 @@ export default NavBar;
 
 
 const FlexContainer = styled.div`
-  max-width: 120rem;
+  max-width: 110rem;
   display: flex;
   margin: auto;
   padding: 0 2rem;;
   justify-content: space-between;
   height: 5rem;
+  background: 73c0ec;
 `;
 
 const NavLinks = styled(animated.ul)`
@@ -65,8 +66,8 @@ const NavLinks = styled(animated.ul)`
     cursor: pointer;
 
     &:hover {
-      color: red;
-      border-bottom: 1px solid #fdcb6e;
+      color: rgba(0,0,0,0.57);
+      border-bottom: 8px solid #73c0ec;
     }
 
     @media (max-width: 768px) {
