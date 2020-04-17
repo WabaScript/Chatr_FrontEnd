@@ -216,6 +216,10 @@ input[type=submit]:hover {
     transition: all 0.4s ease 0s;
 }
 
+.simple {
+  font-size: 5px;
+  
+}
 
 .textStuffChat {
     display: block;
