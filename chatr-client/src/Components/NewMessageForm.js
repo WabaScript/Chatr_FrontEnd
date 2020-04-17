@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/hover-min.css'
 
 export default class NewMessageForm extends React.Component {
 
