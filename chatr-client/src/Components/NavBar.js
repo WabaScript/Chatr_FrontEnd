@@ -71,7 +71,7 @@ const NavLinks = styled(animated.ul)`
     }
 
     @media (max-width: 768px) {
-      display: none;
+      display: :inline-block;
     }
   }
 `;
