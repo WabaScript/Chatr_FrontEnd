@@ -25,7 +25,7 @@ const NavBar = props => {
                     <a href="/" >HomesweetHome</a>
                     <a href="/newChat" >Create New Chat</a>
                     <a href="/chats" >Chatr Chats</a>
-                    <a href="/popchats" >PoPuLaR Chatr Chats</a>
+                    {/* <a href="/popchats" >Quote of the Day</a> */}
                     <a href="/profile" >Profile</a>
                     {!props.currentUser ? <a href="/login" >Login</a> : null}
                     <a href="/signup" >Become One of Us</a>

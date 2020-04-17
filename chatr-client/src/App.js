@@ -6,6 +6,8 @@ import NewChatForm from './Components/NewChatForm';
 import Signup from './Components/Signup'
 import Login from './Components/Login'
 import GlobalStyle from './styles/Global';
+import Profile from './Components/Profile';
+import Meme from './Components/Meme';
 
 class App extends React.Component {
 
@@ -14,7 +16,8 @@ class App extends React.Component {
     users: [],
     currentUser: null,
     loggedIn: false,
-    navbarOpen: false
+    navbarOpen: false,
+    memes: []
   }
 
   componentDidMount() {
@@ -38,6 +41,10 @@ class App extends React.Component {
     fetch(`http://localhost:3000/chats`)
     .then(resp => resp.json())
     .then(chats => this.setState({ chats: chats }))
+
+    fetch(`https://api.imgflip.com/get_memes`)
+    .then(res => res.json())
+    .then(meme => this.setState({memes: meme.data.memes}))
   }
 
   handleNavbar = () => {
@@ -112,10 +119,12 @@ class App extends React.Component {
         <GlobalStyle />
         { this.state.loggedIn && <button className={"logOutBtn"} onClick={this.logout} >Logout</button> }
         <Switch>
+            <Route exact path='/' render={routerProps => <Meme {...routerProps} memes={this.state.memes} /> } />
             <Route path="/signup" render={routerProps => <Signup {...routerProps} handleSignupSubmit={this.handleSignupSubmit}/> } />
             <Route path="/login" render={routerProps => <Login {...routerProps} setUser={this.setUser} /> } />
             <Route path="/chats" render={routerProps => <ChatsContainer {...routerProps} chats={this.state.chats} currentUser={this.state.currentUser} />} />
             <Route path="/newChat" render={routerProps => <NewChatForm {...routerProps} handleSubmit={this.handleSubmit} currentUser={this.state.currentUser}/>} />
+    <Route path="/profile" render={routerProps => this.state.loggedIn ? <Profile {...routerProps} currentUser={this.state.currentUser}/> : <Meme {...routerProps} memes={this.state.memes} /> } />
         </Switch>
       </div>
     );
