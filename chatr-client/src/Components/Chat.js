@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {useParams} from "react-router-dom"
 import NewMessageForm from './NewMessageForm'
 import EditMessageForm from './EditMessageForm'
+import Message from './Message'
 
 const Chat = (props) => {
 
@@ -11,18 +12,18 @@ const Chat = (props) => {
 
     const renderMessages = () => {
         if (props.chats.length > 0) {
-            let user = ''
-            return props.messages.map(message => {
-                user = props.users.find(user => user.id === message.user_id )
-                return <div> 
-                    {message.chat_id == chatId && (user.username + ":")} {message.chat_id == chatId && message.content}
-                    {props.currentUser && message.user_id === props.currentUser.id && message.chat_id == chatId ? 
-                    <button onClick={() => props.deleteMessage(message)}> X</button> : null}
-                    {props.currentUser && message.user_id === props.currentUser.id && message.chat_id == chatId ? 
-                    <button onClick={() => props.handleEditChange()}> edit</button> : null}
-                    {props.currentUser && message.user_id === props.currentUser.id && message.chat_id == chatId && props.edit ? <EditMessageForm handleEditMessageSubmit={props.handleEditMessageSubmit} message={message}/> : null}
-                    </div>
-            }) 
+            let messages = props.messages.filter(message => message.chat_id == chatId)
+            return messages.map(message => {
+                return <Message 
+                            edit={props.edit} 
+                            deleteMessage={props.deleteMessage} 
+                            handleEditChange={props.handleEditChange}
+                            handleEditMessageSubmit={props.handleEditMessageSubmit}
+                            message={message} 
+                            currentUser={props.currentUser} 
+                            users={props.users}/>
+            })  
+            
         }
     }
     
