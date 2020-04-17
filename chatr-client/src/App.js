@@ -8,6 +8,7 @@ import Login from './Components/Login'
 import GlobalStyle from './styles/Global';
 import Profile from './Components/Profile';
 import Meme from './Components/Meme';
+const API_KEY = (process.env.REACT_APP_API_KEY)
 
 class App extends React.Component {
 
@@ -42,9 +43,9 @@ class App extends React.Component {
     .then(resp => resp.json())
     .then(chats => this.setState({ chats: chats }))
 
-    fetch(`https://api.imgflip.com/get_memes`)
+    fetch(`https://api.giphy.com/v1/gifs/random?api_key=${API_KEY}&tag=&rating=G`)
     .then(res => res.json())
-    .then(meme => this.setState({memes: meme.data.memes}))
+    .then(meme => this.setState({memes: meme.data.images.downsized_large.url}))
   }
 
   handleNavbar = () => {
@@ -112,6 +113,13 @@ class App extends React.Component {
     //   e.target.reset()
   }
 
+
+  newMeme = () => {
+    fetch(`https://api.giphy.com/v1/gifs/random?api_key=${API_KEY}&tag=&rating=G`)
+    .then(res => res.json())
+    .then(meme => this.setState({memes: meme.data.images.downsized_large.url}))
+  }
+
   render() {
     return (
       <div>
@@ -119,7 +127,7 @@ class App extends React.Component {
         <GlobalStyle />
         { this.state.loggedIn && <button className={"logOutBtn"} onClick={this.logout} >Logout</button> }
         <Switch>
-            <Route exact path='/' render={routerProps => <Meme {...routerProps} memes={this.state.memes} /> } />
+            <Route exact path='/' render={routerProps => <Meme {...routerProps} newMeme={this.newMeme} memes={this.state.memes} /> } />
             <Route path="/signup" render={routerProps => <Signup {...routerProps} handleSignupSubmit={this.handleSignupSubmit}/> } />
             <Route path="/login" render={routerProps => <Login {...routerProps} setUser={this.setUser} /> } />
             <Route path="/chats" render={routerProps => <ChatsContainer {...routerProps} chats={this.state.chats} currentUser={this.state.currentUser} />} />
