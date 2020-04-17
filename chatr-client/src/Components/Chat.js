@@ -29,7 +29,7 @@ const Chat = (props) => {
     
 
     return (
-        <div>
+        <div className="textStuffChat">
             <h3>{props.chats.length > 0 && props.messages.length > 0 ? props.chats[chatId - 1].topic : null}</h3>
             {renderMessages()}
             
