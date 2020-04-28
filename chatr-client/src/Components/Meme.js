@@ -15,7 +15,7 @@ const Meme = props => {
             <br/>
             Here is a random Gif.
              What's your caption?
-            <img onClick={() => props.newMeme()}className="img" src={props.memes} />
+            <img onClick={() => props.newMeme()} className="img" src={props.memes} />
             <span className={"simple"}>Powered by Giphy</span>
         </div>
     )

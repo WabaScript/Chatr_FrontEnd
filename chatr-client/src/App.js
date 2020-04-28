@@ -132,7 +132,7 @@ class App extends React.Component {
             <Route path="/login" render={routerProps => <Login {...routerProps} setUser={this.setUser} /> } />
             <Route path="/chats" render={routerProps => <ChatsContainer {...routerProps} chats={this.state.chats} currentUser={this.state.currentUser} />} />
             <Route path="/newChat" render={routerProps => <NewChatForm {...routerProps} handleSubmit={this.handleSubmit} currentUser={this.state.currentUser}/>} />
-    <Route path="/profile" render={routerProps => this.state.loggedIn ? <Profile {...routerProps} currentUser={this.state.currentUser}/> : <Meme {...routerProps} memes={this.state.memes} /> } />
+    <Route path="/profile" render={routerProps => this.state.loggedIn ? <Profile {...routerProps} currentUser={this.state.currentUser}/> : <Meme {...routerProps} newMeme={this.newMeme} memes={this.state.memes} /> } />
         </Switch>
       </div>
     );
