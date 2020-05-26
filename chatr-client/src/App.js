@@ -9,6 +9,7 @@ import GlobalStyle from './styles/Global';
 import Profile from './Components/Profile';
 import Meme from './Components/Meme';
 const API_KEY = (process.env.REACT_APP_API_KEY)
+import { ActionCableConsumer } from 'react-actioncable-provider';
 
 class App extends React.Component {
 
@@ -86,8 +87,8 @@ class App extends React.Component {
       },
       body: JSON.stringify(chat)
     })
-    .then(resp => resp.json())
-    .then(chat => this.setState({ chats: [...this.state.chats, chat] }))
+    // .then(resp => resp.json())
+    // .then(chat => this.setState({ chats: [...this.state.chats, chat] }))
     e.target.reset()
   }
 
@@ -120,6 +121,14 @@ class App extends React.Component {
     .then(meme => this.setState({memes: meme.data.images.downsized_large.url}))
   }
 
+   // web socket testing receptions
+   incomingChat = response => {
+    this.setState({
+      chats: [...this.state.chats, response]
+    });
+    console.log("TSETING")
+  };
+
   render() {
     return (
       <div>
@@ -127,12 +136,17 @@ class App extends React.Component {
         <GlobalStyle />
         { this.state.loggedIn && <button className={"logOutBtn"} onClick={this.logout} >Logout</button> }
         <Switch>
+        <ActionCableConsumer
+                channel={{ channel: 'ChatsChannel' }}
+                onReceived={this.incomingChat}
+              >
             <Route exact path='/' render={routerProps => <Meme {...routerProps} newMeme={this.newMeme} memes={this.state.memes} /> } />
             <Route path="/signup" render={routerProps => <Signup {...routerProps} handleSignupSubmit={this.handleSignupSubmit}/> } />
             <Route path="/login" render={routerProps => <Login {...routerProps} setUser={this.setUser} /> } />
             <Route path="/chats" render={routerProps => <ChatsContainer {...routerProps} chats={this.state.chats} currentUser={this.state.currentUser} />} />
             <Route path="/newChat" render={routerProps => <NewChatForm {...routerProps} handleSubmit={this.handleSubmit} currentUser={this.state.currentUser}/>} />
     <Route path="/profile" render={routerProps => this.state.loggedIn ? <Profile {...routerProps} currentUser={this.state.currentUser}/> : <Meme {...routerProps} newMeme={this.newMeme} memes={this.state.memes} /> } />
+        </ActionCableConsumer>
         </Switch>
       </div>
     );
