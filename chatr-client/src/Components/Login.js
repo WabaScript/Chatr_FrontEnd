@@ -41,7 +41,7 @@ export default class Login extends React.Component {
 
     render(){
         return(
-            <form onSubmit={this.handleLoginSubmit}>
+            <form className={"padding"} onSubmit={this.handleLoginSubmit}>
                 <input type="text" placeholder="Enter your Username" name="username" value={this.state.username} onChange={this.handleChange}/>  
                 <br/><input type="password" placeholder="Enter your Password" name="password" value={this.state.password} onChange={this.handleChange}/>    
                 <br/><input type="submit" value="Submit" />
