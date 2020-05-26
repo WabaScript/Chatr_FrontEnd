@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
-import { ActionCable } from 'react-actioncable-provider';
+import { ActionCableConsumer } from 'react-actioncable-provider';
 
 const Cable = ({ chats, incomingMessage }) => {
   return (
     <Fragment>
       {chats.map(chat => {
         return (
-          <ActionCable
+          <ActionCableConsumer
             key={chat.id}  
             channel={{ channel: 'MessagesChannel', chat: chat.id }}
             onReceived={incomingMessage}
@@ -15,6 +15,4 @@ const Cable = ({ chats, incomingMessage }) => {
       })}
     </Fragment>
   );
-};
-
-export default Cable;
+};export default Cable;
