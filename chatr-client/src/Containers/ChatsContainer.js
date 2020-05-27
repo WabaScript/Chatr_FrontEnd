@@ -5,7 +5,6 @@ import { render } from 'react-dom';
 import { ActionCableConsumer } from 'react-actioncable-provider';
 import Chat from "../Components/Chat"
 import ChatsList from "../Components/ChatsList"
-import Cable from '../Components/Cable'
 
 const actioncable = require("actioncable")
 
@@ -31,9 +30,9 @@ export default class ChatsContainer extends React.Component {
     .then(users => this.setState({ users: users }))
   }
 
-  handleMessageSubmit = (e, message) => {
+  handleMessageSubmit = async (e, message) => {
     e.preventDefault()
-    fetch(`http://localhost:3000/messages`, {
+    await fetch(`http://localhost:3000/messages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,8 +40,10 @@ export default class ChatsContainer extends React.Component {
       },
       body: JSON.stringify(message)
     })
-    this.setState({ messages: [...this.state.messages, message] })
-    e.target.reset()
+    // this.setState({ messages: [...this.state.messages, message] })
+    if (!e.target === null) {
+      e.target.reset()
+    }
   }
 
   deleteMessage = (message) => {
@@ -70,39 +71,27 @@ export default class ChatsContainer extends React.Component {
       })
   }
 
-  // componentDidUpdate(_, prevState) {
-  //     if (prevState.messages === this.state.messages) {
-  //       fetch(`http://localhost:3000/messages`)
-  //       .then(res => res.json())
-  //       .then(res => this.setState({ messages: res}))
-  //       }
-  //   }
-
   handleEditChange = () => {
     this.setState({ edit: !this.state.edit})
   }
-  
 
-  incomingMessage = response => {
-    const { message } = response;
-    const chats = [...this.state.chats];
-    const chat = chats.find(
-      chat => chat.id === message.chat_id
-    );
-    chat.messages = [...chat.messages, message];
-    this.setState({ chats });
+  // web socket testing receptions
+  incomingMessage = (response) => {
+    const {message} = response
+    if (!this.state.messages.some(msg => msg.id === message.id)) {
+      this.setState({
+        messages: [...this.state.messages, message]
+      });
+    }
   };
 
   render() {
       return(
           <div>
-             
-                 {/* {this.state.chats.length ? (
-                <Cable
-                  chats={this.state.chats}
-                  onReceived={this.incomingMessage}
-                />
-              ) : null} */}
+            <ActionCableConsumer
+                channel={{ channel: 'MessagesChannel' }}
+                onReceived={this.incomingMessage}
+            >
             <ChatsList chats={this.props.chats} deleteChat={this.props.deleteChat}/>
             <Route exact path={`${this.props.match.url}/:chatId`} 
                 render={routerProps => this.state.users.length > 0 &&
@@ -117,7 +106,7 @@ export default class ChatsContainer extends React.Component {
                     deleteMessage={this.deleteMessage}
                     currentUser={this.props.currentUser}/> 
                   }/>
-            
+            </ActionCableConsumer>
           </div>
       )
   }

@@ -14,7 +14,8 @@ const Chat = (props) => {
         if (props.chats.length > 0) {
             let messages = props.messages.filter(message => message.chat_id == chatId)
             return messages.map(message => {
-                return <Message 
+                return <Message
+                            key={message.id} 
                             edit={props.edit} 
                             deleteMessage={props.deleteMessage} 
                             handleEditChange={props.handleEditChange}

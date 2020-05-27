@@ -20,7 +20,6 @@ export default class ChatsList extends React.Component {
   renderChats = () => {
     return Object.keys(this.props.chats).map(chatId => {
         return <div className={"example_a"}>
-          
           <Link className={"hvr-pulse-shrink"} key={parseInt(chatId) + 1} to={`/chats/${parseInt(chatId) + 1}`}>{this.props.chats[chatId].topic}<br/></Link></div>
     })
   }

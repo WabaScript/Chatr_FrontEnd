@@ -4,7 +4,7 @@ export default class NewChatForm extends React.Component {
 
     state={
         topic: "",
-        owner_id: "",
+        owner_id: ""
     }
 
     handleChange = (event) => {
