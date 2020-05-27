@@ -44,7 +44,7 @@ class App extends React.Component {
     .then(resp => resp.json())
     .then(chats => this.setState({ chats: chats }))
 
-    fetch(`https://api.giphy.com/v1/gifs/random?api_key=${API_KEY}&tag=&rating=G`)
+    fetch(`https://api.giphy.com/v1/gifs/random?api_key=wdr73KD6lKsfAw5BpNW3vy9aovcBBoH7&tag=&rating=G`)
     .then(res => res.json())
     .then(meme => this.setState({memes: meme.data.images.downsized_large.url}))
   }
@@ -77,9 +77,9 @@ class App extends React.Component {
     }
 
   //handle New Chat
-  handleSubmit = (e, chat) => {
+  handleSubmit = async (e, chat) => {
     e.preventDefault()
-    fetch(`http://localhost:3000/chats`, {
+    await fetch(`http://localhost:3000/chats`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -88,9 +88,12 @@ class App extends React.Component {
       body: JSON.stringify(chat)
     })
     // .then(resp => resp.json())
+    this.props.history.push(`/chats`)
     // .then(chat => this.setState({ chats: [...this.state.chats, chat] }))
-    this.props.history.push("/chats")
-    e.target.reset()
+    // .then(this.props.history.push(`/chats/${chat.id}`))
+    if (!e.target === null) {
+      e.target.reset()
+    }
   }
 
   //Handle New User Sign UP
@@ -125,10 +128,11 @@ class App extends React.Component {
    // web socket testing receptions
    incomingChat = response => {
     const {chat} = response
-    this.setState({
-      chats: [...this.state.chats, chat]
-    });
-    console.log("Working")
+    if (!this.state.chats.some(c => c.id === chat.id)) {
+      this.setState({
+        chats: [...this.state.chats, chat]
+      });
+    }
   };
 
   render() {
