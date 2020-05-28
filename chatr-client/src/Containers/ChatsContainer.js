@@ -21,18 +21,18 @@ export default class ChatsContainer extends React.Component {
     
     this.setState({chats: this.props.chats})
 
-    fetch(`http://localhost:3000/messages`)
+    fetch(`/messages`)
     .then(resp => resp.json())
     .then(messages => this.setState({ messages: messages }))
 
-    fetch(`http://localhost:3000/users`)
+    fetch(`/users`)
     .then(resp => resp.json())
     .then(users => this.setState({ users: users }))
   }
 
   handleMessageSubmit = async (e, message) => {
     e.preventDefault()
-    await fetch(`http://localhost:3000/messages`, {
+    await fetch(`/messages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
