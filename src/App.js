@@ -1,4 +1,5 @@
 import React from 'react';
+import { ActionCableConsumer } from 'react-actioncable-provider';
 import {Switch, Route} from 'react-router-dom'
 import NavBar from './Components/NavBar'
 import ChatsContainer from './Containers/ChatsContainer'
@@ -9,7 +10,6 @@ import GlobalStyle from './styles/Global';
 import Profile from './Components/Profile';
 import Meme from './Components/Meme';
 const API_KEY = (process.env.REACT_APP_API_KEY)
-import { ActionCableConsumer } from 'react-actioncable-provider';
 
 class App extends React.Component {
 
