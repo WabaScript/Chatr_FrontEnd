@@ -25,7 +25,7 @@ class App extends React.Component {
   componentDidMount() {
     const user_id = localStorage.user_id
     if(user_id) {
-      fetch("https://chatr2020.herokuapp.com/auto_login", {
+      fetch("http://localhost:3000/auto_login", {
         headers: {
           "Authorization": user_id
         }
@@ -40,7 +40,7 @@ class App extends React.Component {
       })
     }
 
-    fetch(`https://chatr2020.herokuapp.com/chats`)
+    fetch(`http://localhost:3000/chats`)
     .then(resp => resp.json())
     .then(chats => this.setState({ chats: chats }))
 
@@ -79,7 +79,7 @@ class App extends React.Component {
   //handle New Chat
   handleSubmit = async (e, chat) => {
     e.preventDefault()
-    await fetch(`https://chatr2020.herokuapp.com/chats`, {
+    await fetch(`http://localhost:3000/chats`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -99,7 +99,7 @@ class App extends React.Component {
   //Handle New User Sign UP
   handleSignupSubmit = (e, user) => {
     e.preventDefault()
-    fetch(`https://chatr2020.herokuapp.com/signup`, {
+    fetch(`http://localhost:3000/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
