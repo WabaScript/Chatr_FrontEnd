@@ -22,7 +22,7 @@ export default class Login extends React.Component {
 
   handleLoginSubmit = (e) => {
     e.preventDefault()
-    fetch("/login", {
+    fetch("https://chatr2020.herokuapp.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

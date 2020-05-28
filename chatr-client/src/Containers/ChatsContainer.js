@@ -21,18 +21,18 @@ export default class ChatsContainer extends React.Component {
     
     this.setState({chats: this.props.chats})
 
-    fetch(`/messages`)
+    fetch(`https://chatr2020.herokuapp.com/messages`)
     .then(resp => resp.json())
     .then(messages => this.setState({ messages: messages }))
 
-    fetch(`/users`)
+    fetch(`https://chatr2020.herokuapp.com/users`)
     .then(resp => resp.json())
     .then(users => this.setState({ users: users }))
   }
 
   handleMessageSubmit = async (e, message) => {
     e.preventDefault()
-    await fetch(`/messages`, {
+    await fetch(`https://chatr2020.herokuapp.com/messages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export default class ChatsContainer extends React.Component {
   }
 
   deleteMessage = (message) => {
-    fetch(`http://localhost:3000/messages/${message.id}`, {method: "DELETE"} )
+    fetch(`https://chatr2020.herokuapp.com/messages/${message.id}`, {method: "DELETE"} )
     let newArray =  this.state.messages.filter(msg => msg.id !== message.id)
     this.setState({
       messages: newArray
@@ -56,7 +56,7 @@ export default class ChatsContainer extends React.Component {
 
   handleEditMessageSubmit = (e, msg) => {
     e.preventDefault()
-    fetch(`http://localhost:3000/messages/${msg.id}`, {
+    fetch(`https://chatr2020.herokuapp.com/messages/${msg.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
