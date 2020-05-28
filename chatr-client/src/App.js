@@ -25,7 +25,7 @@ class App extends React.Component {
   componentDidMount() {
     const user_id = localStorage.user_id
     if(user_id) {
-      fetch("http://localhost:3000/auto_login", {
+      fetch("/auto_login", {
         headers: {
           "Authorization": user_id
         }
@@ -40,11 +40,11 @@ class App extends React.Component {
       })
     }
 
-    fetch(`http://localhost:3000/chats`)
+    fetch(`/chats`)
     .then(resp => resp.json())
     .then(chats => this.setState({ chats: chats }))
 
-    fetch(`https://api.giphy.com/v1/gifs/random?api_key=wdr73KD6lKsfAw5BpNW3vy9aovcBBoH7&tag=&rating=G`)
+    fetch(`https://api.giphy.com/v1/gifs/random?api_key=${API_KEY}&tag=&rating=G`)
     .then(res => res.json())
     .then(meme => this.setState({memes: meme.data.images.downsized_large.url}))
   }
@@ -79,7 +79,7 @@ class App extends React.Component {
   //handle New Chat
   handleSubmit = async (e, chat) => {
     e.preventDefault()
-    await fetch(`http://localhost:3000/chats`, {
+    await fetch(`/chats`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -99,7 +99,7 @@ class App extends React.Component {
   //Handle New User Sign UP
   handleSignupSubmit = (e, user) => {
     e.preventDefault()
-    fetch(`http://localhost:3000/signup`, {
+    fetch(`/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

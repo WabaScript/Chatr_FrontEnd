@@ -22,7 +22,7 @@ export default class Login extends React.Component {
 
   handleLoginSubmit = (e) => {
     e.preventDefault()
-    fetch("http://localhost:3000/login", {
+    fetch("/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
