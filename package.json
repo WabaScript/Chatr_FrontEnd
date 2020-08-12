@@ -2,7 +2,7 @@
   "name": "chatr-client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "proxy": "https://chatr2020.herokuapp.com",
   "engines": {
     "npm": "6.14.4",
     "node": "13.7.0"

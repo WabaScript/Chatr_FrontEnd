@@ -40,10 +40,6 @@ export default class ChatsContainer extends React.Component {
       },
       body: JSON.stringify(message)
     })
-    // this.setState({ messages: [...this.state.messages, message] })
-    if (!e.target === null) {
-      e.target.reset()
-    }
   }
 
   deleteMessage = (message) => {
@@ -77,12 +73,12 @@ export default class ChatsContainer extends React.Component {
 
   // web socket testing receptions
   incomingMessage = (response) => {
-    const {message} = response
-    if (!this.state.messages.some(msg => msg.id === message.id)) {
+    console.log(response.message)
+    
       this.setState({
-        messages: [...this.state.messages, message]
+        messages: [...this.state.messages, response.message]
       });
-    }
+    
   };
 
   render() {

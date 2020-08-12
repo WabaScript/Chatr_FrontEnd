@@ -7,7 +7,7 @@ import App from './App';
 
 
 ReactDOM.render(
-        <ActionCableProvider url="wss://https://chatr2020.herokuapp.com/cable">
+        <ActionCableProvider url="ws://chatr2020.herokuapp.com/cable">
       <Router>
           <Route path="/" render={routerProps => <App {...routerProps} /> } />
       </Router>

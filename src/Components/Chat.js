@@ -12,7 +12,8 @@ const Chat = (props) => {
 
     const renderMessages = () => {
         if (props.chats.length > 0) {
-            let messages = props.messages.filter(message => message.chat_id == chatId)
+            let fullmessages = props.messages.filter(message => message.chat_id == chatId)
+            let messages = [...new Set(fullmessages)]
             return messages.map(message => {
                 return <Message
                             key={message.id} 
